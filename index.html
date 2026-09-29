@@ -1,6 +1,600 @@
-  Mon site
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon site ✨</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            color: white;
+            background: #050510;
+            overflow-x: hidden;
+            transition: background 0.5s, color 0.5s;
+        }
+
+        /* ===== FOND ===== */
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -3;
+            background:
+                radial-gradient(circle at 20% 20%, #6c00ff44, transparent 30%),
+                radial-gradient(circle at 80% 70%, #00c8ff33, transparent 30%),
+                #050510;
+        }
+
+        .grid {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background-image:
+                linear-gradient(#ffffff08 1px, transparent 1px),
+                linear-gradient(90deg, #ffffff08 1px, transparent 1px);
+            background-size: 50px 50px;
+            mask-image: linear-gradient(to bottom, black, transparent);
+            animation: gridMove 15s linear infinite;
+        }
+
+        @keyframes gridMove {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(50px);
+            }
+        }
+
+        /* ===== PARTICULES ===== */
+
+        #particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 0 15px #8c5cff;
+            animation: float linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes float {
+            from {
+                transform: translateY(110vh);
+            }
+            to {
+                transform: translateY(-10vh);
+            }
+        }
+
+        /* ===== CURSEUR ===== */
+
+        .cursor {
+            position: fixed;
+            width: 25px;
+            height: 25px;
+            border: 2px solid #8c5cff;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            box-shadow: 0 0 20px #8c5cff;
+            transition: width 0.15s, height 0.15s;
+        }
+
+        /* ===== NAVBAR ===== */
+
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(90%, 900px);
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff0d;
+            border: 1px solid #ffffff1c;
+            border-radius: 50px;
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+        }
+
+        nav .logo {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #b68cff;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #b68cff;
+            text-shadow: 0 0 15px #8c5cff;
+        }
+
+        /* ===== HERO ===== */
+
+        section {
+            min-height: 100vh;
+            padding: 120px 10%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 10vw, 8rem);
+            background: linear-gradient(90deg, #fff, #a66cff, #00d9ff, #fff);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: gradient 5s infinite linear;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0%; }
+            100% { background-position: 300%; }
+        }
+
+        .hero p {
+            margin-top: 20px;
+            font-size: 1.3rem;
+            color: #bbb;
+        }
+
+        .typing {
+            color: #a66cff;
+            font-weight: bold;
+        }
+
+        /* ===== BOUTONS ===== */
+
+        .buttons {
+            margin-top: 35px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 14px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            color: white;
+            border: 1px solid #a66cff;
+            background: #a66cff18;
+            transition: 0.3s;
+            box-shadow: 0 0 0 transparent;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            background: #a66cff;
+            box-shadow: 0 0 30px #8c5cff;
+        }
+
+        /* ===== CARTES ===== */
+
+        .title {
+            font-size: 3rem;
+            margin-bottom: 50px;
+        }
+
+        .cards {
+            width: 100%;
+            max-width: 1000px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            padding: 30px;
+            min-height: 220px;
+            border-radius: 25px;
+            background: #ffffff0a;
+            border: 1px solid #ffffff15;
+            backdrop-filter: blur(10px);
+            transition: 0.4s;
+            transform-style: preserve-3d;
+        }
+
+        .card:hover {
+            transform: translateY(-15px) rotateX(5deg) rotateY(-5deg);
+            border-color: #a66cff;
+            box-shadow: 0 20px 50px #8c5cff22;
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            color: #b68cff;
+            font-size: 1.5rem;
+        }
+
+        .card p {
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+        /* ===== SCROLL REVEAL ===== */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(80px);
+            transition: 1s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== CONTACT ===== */
+
+        .contact-box {
+            padding: 40px;
+            max-width: 700px;
+            border-radius: 30px;
+            background: #ffffff0a;
+            border: 1px solid #ffffff15;
+            backdrop-filter: blur(15px);
+        }
+
+        .contact-box p {
+            color: #aaa;
+            margin: 15px 0 25px;
+        }
+
+        footer {
+            padding: 30px;
+            text-align: center;
+            color: #666;
+        }
+
+        /* ===== BOUTON THEME ===== */
+
+        #theme {
+            position: fixed;
+            right: 25px;
+            bottom: 25px;
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            background: #a66cff;
+            color: white;
+            font-size: 20px;
+            box-shadow: 0 0 25px #8c5cff;
+            z-index: 1000;
+            transition: 0.3s;
+        }
+
+        #theme:hover {
+            transform: rotate(180deg) scale(1.1);
+        }
+
+        /* ===== MOBILE ===== */
+
+        @media (max-width: 600px) {
+            nav {
+                padding: 12px 18px;
+            }
+
+            nav .links {
+                display: none;
+            }
+
+            section {
+                padding: 100px 6%;
+            }
+
+            .hero h1 {
+                font-size: 4rem;
+            }
+
+            .cursor {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="grid"></div>
+    <div id="particles"></div>
+    <div class="cursor"></div>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="logo">MON SITE ✨</div>
+
+        <div class="links">
+            <a href="#accueil">Accueil</a>
+            <a href="#moi">Moi</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- ACCUEIL -->
+    <section class="hero" id="accueil">
+
+        <h1>Bienvenue 👋</h1>
+
+        <p>
+            Je suis <span class="typing" id="typing"></span>
+        </p>
+
+        <div class="buttons">
+            <a class="btn" href="#moi">Découvrir ↓</a>
+            <a class="btn" href="#contact">Me contacter</a>
+        </div>
+
+    </section>
+
+    <!-- MOI -->
+    <section id="moi">
+
+        <h2 class="title reveal">À propos de moi</h2>
+
+        <div class="cards">
+
+            <div class="card reveal">
+                <h3>💻 Création</h3>
+                <p>
+                    J'aime créer des sites web et expérimenter
+                    avec HTML, CSS et JavaScript.
+                </p>
+            </div>
+
+            <div class="card reveal">
+                <h3>🚀 Projets</h3>
+                <p>
+                    Je travaille sur différents projets pour
+                    apprendre et progresser en programmation.
+                </p>
+            </div>
+
+            <div class="card reveal">
+                <h3>🎨 Design</h3>
+                <p>
+                    J'aime les interfaces modernes, les animations
+                    et les effets lumineux.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+
+        <div class="contact-box reveal">
+
+            <h2 class="title">Contact 📬</h2>
+
+            <p>
+                Tu veux me contacter ? Envoie-moi un message !
+            </p>
+
+            <a class="btn" href="mailto:gofluxy@gmail.com">
+                ✉️ Envoyer un email
+            </a>
+
+        </div>
+
+    </section>
+
+    <footer>
+        © 2026 — Mon site ✨
+    </footer>
+
+    <button id="theme">🌙</button>
+
+    <script>
+
+        /* =========================
+           TEXTE QUI S'ÉCRIT
+        ========================= */
+
+        const texts = [
+            "un développeur 💻",
+            "un créateur 🚀",
+            "un passionné de web 🌐",
+            "en train d'apprendre 😎"
+        ];
+
+        let textIndex = 0;
+        let charIndex = 0;
+        let deleting = false;
+
+        function type() {
+
+            const element = document.getElementById("typing");
+            const text = texts[textIndex];
+
+            if (!deleting) {
+                element.textContent = text.substring(0, charIndex++);
+            } else {
+                element.textContent = text.substring(0, charIndex--);
+            }
+
+            let speed = deleting ? 50 : 100;
+
+            if (!deleting && charIndex > text.length) {
+                deleting = true;
+                speed = 1500;
+            }
+
+            if (deleting && charIndex < 0) {
+                deleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                charIndex = 0;
+                speed = 500;
+            }
+
+            setTimeout(type, speed);
+        }
+
+        type();
 
 
-    <h1>Bienvenue sur mon site !</h1>
-    <p>Je m'appelle probrablement moi et voici ma première page web.</p>
-    <p>📧 Contact :gofluxy@gmail.com</p>
+        /* =========================
+           PARTICULES
+        ========================= */
+
+        const particles = document.getElementById("particles");
+
+        for (let i = 0; i < 80; i++) {
+
+            const particle = document.createElement("div");
+
+            particle.classList.add("particle");
+
+            particle.style.left = Math.random() * 100 + "%";
+            particle.style.animationDuration =
+                (5 + Math.random() * 10) + "s";
+
+            particle.style.animationDelay =
+                Math.random() * 10 + "s";
+
+            particle.style.opacity =
+                0.2 + Math.random() * 0.8;
+
+            particles.appendChild(particle);
+        }
+
+
+        /* =========================
+           CURSEUR
+        ========================= */
+
+        const cursor = document.querySelector(".cursor");
+
+        document.addEventListener("mousemove", (e) => {
+            cursor.style.left = e.clientX + "px";
+            cursor.style.top = e.clientY + "px";
+        });
+
+        document.querySelectorAll("a, button, .card").forEach(el => {
+
+            el.addEventListener("mouseenter", () => {
+                cursor.style.width = "50px";
+                cursor.style.height = "50px";
+            });
+
+            el.addEventListener("mouseleave", () => {
+                cursor.style.width = "25px";
+                cursor.style.height = "25px";
+            });
+
+        });
+
+
+        /* =========================
+           ANIMATION AU SCROLL
+        ========================= */
+
+        const observer = new IntersectionObserver(
+            entries => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                    }
+
+                });
+
+            },
+            {
+                threshold: 0.15
+            }
+        );
+
+        document.querySelectorAll(".reveal").forEach(el => {
+            observer.observe(el);
+        });
+
+
+        /* =========================
+           MODE CLAIR / SOMBRE
+        ========================= */
+
+        const theme = document.getElementById("theme");
+
+        let light = false;
+
+        theme.addEventListener("click", () => {
+
+            light = !light;
+
+            if (light) {
+
+                document.body.style.background = "#eee";
+                document.body.style.color = "#111";
+
+                theme.textContent = "☀️";
+
+            } else {
+
+                document.body.style.background = "#050510";
+                document.body.style.color = "white";
+
+                theme.textContent = "🌙";
+
+            }
+
+        });
+
+
+        /* =========================
+           PETIT EFFET PARALLAXE
+        ========================= */
+
+        document.addEventListener("mousemove", (e) => {
+
+            const x = (window.innerWidth / 2 - e.clientX) / 80;
+            const y = (window.innerHeight / 2 - e.clientY) / 80;
+
+            document.querySelector(".grid").style.transform =
+                `translate(${x}px, ${y}px)`;
+
+        });
+
+    </script>
+
+</body>
+</html>
